@@ -43,18 +43,18 @@ console.log('hello')
 ---
 ---
 ## 이미지와 링크
-> 절대 경로 | /c/Users/SSAFY/Downloads
+> 절대 경로 | /c/Users/Username/Downloads
 
 
-> 상대 경로 | ../ssafy.png
+> 상대 경로 | ../sample.png
 
 
 [파이썬 내장 함수](https://docs.python.org/3/library/functions.html)
 
 [네이버](https://www.naver.com)
 
-![싸피로고](https://picsum.photos/200/300)
-![싸피로고](assets/ssafy.png)
+![로고](https://picsum.photos/200/300)
+![로고](assets/sample.png)
 
 ---
 ---
