@@ -1,3 +1,3 @@
-test = '12345'
+test = '123456789'
 
-print(test[-5 : 3])
+print(test[-8 : -5])
