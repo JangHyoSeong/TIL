@@ -29,14 +29,11 @@ rental_book = [
     '만복자서포기',
 ]
 
-# 모든 책을 보유 중인지 확인
-all_books_owned = all(book in list_of_book for book in rental_book)
+all_book_ok = True
+missing_book = [missing for missing in rental_book if missing not in list_of_book]
 
-# 보유하지 않은 책 목록 출력
-not_owned_books = [book for book in rental_book if book not in list_of_book]
+if missing_book == []:
+    print('모든 도서가 대여 가능한 상태입니다')
 
-# 결과 출력
-if not all_books_owned:
-    print("보유하지 않은 책이 있습니다:", ', '.join(not_owned_books))
-else:
-    print("모두 보유하고 있습니다.")
+for missing in missing_book:
+    print(f'{missing} 을/를 보충하여야 합니다.')

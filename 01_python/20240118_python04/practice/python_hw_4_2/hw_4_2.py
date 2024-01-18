@@ -27,7 +27,7 @@ rental_list = [
     '만복자서포기',
 ]
 
-all_book_ok = 1
+all_book_ok = True
 
 for i in rental_list:
     flag = 0
@@ -37,7 +37,7 @@ for i in rental_list:
             break
     if flag == 0:
         print(f'{i}은/는 보유하고 있지 않습니다.')
-        all_book_ok = 0
+        all_book_ok = False
 
-if all_book_ok == 1:
+if all_book_ok:
     print('모든 도서가 대여 가능한 상태입니다')
