@@ -6,5 +6,10 @@ def count_character(my_string, find_word):
             count += 1
     return count
 
+'''
+def count_character(my_string, find_word):
+    return word.count(find_word)
+'''
+
 result = count_character("Hello, World!", "o")
 print(result)  # 2
