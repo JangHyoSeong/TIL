@@ -72,9 +72,72 @@ void insertNext(struct Node* curr, int val)
   curr -> next = newNode;
 }
 
-/*
-모든 노드 할당 해제
-*/
+
+//data 값을 갖고 있는 노드의 이전에 val 값을 가진 노드를 삽입
+//맨 처음 노드 이전에 삽입하기 위해 이중 포인터를 사용
+void insertBefore(struct Node **first, int data, int val)
+{
+  struct Node *newNode;
+  struct Node *curr, *prev;
+
+  curr = searchNode(*first, data);
+  if (curr == NULL)
+  {
+    printf("insertBefore: %d가 리스트에 없어 삽입에 실패했습니다.\n", data);
+  }
+  else
+  {
+    prev = *first;
+    newNode = createNode(val);
+
+    if (curr != *first)
+    {
+      while (prev->next != curr)
+      {
+        prev = prev->next;
+      }
+      prev->next = newNode;
+    }
+    else
+    {
+      *first = newNode; // 첫 번째 노드를 새로운 노드로 업데이트
+    }
+    newNode->next = curr;
+  }
+}
+
+
+// 입력받은 데이터에 해당하는 노드를 삭제
+// top노드와 지울 데이터를 입력받음
+// 첫 번째 노드도 지울 수 있도록 이중 포인터로 first를 받아옴
+// 이를 통해 first는 top의 주소를 기억함(포인터 변수의 주소를 기억)
+void deleteNode (struct Node **first, int data)
+{
+  struct Node *prev, *curr;
+
+  curr = searchNode(*first, data);
+  if (curr == NULL){
+    printf("There is no data %d in the list \n", data);
+  }
+  else{
+    if(curr != *first){
+      prev = *first;
+      while(prev->next != curr){
+        prev = prev->next;
+      }
+      prev->next = curr->next;
+    }
+    else{
+      *first = (*first) -> next;
+    }
+    free(curr);
+  }
+}
+
+
+
+//모든 노드 할당 해제
+
 void freeAll(struct Node* node)
 {
   while(node != NULL)
@@ -88,32 +151,25 @@ void freeAll(struct Node* node)
 int main()
 {
   struct Node* top;
-  struct Node* temp;
+  struct Node* temp, *deletedNode;
 
-  top = NULL;
+  top = createNode(1);
+  insertNext(top, 3);
 
-  temp = createNode(1);
-  top = temp;
+  temp = searchNode(top, 3);
+  insertNext(temp, 5);
 
-  temp = createNode(3);
-  temp -> next = top;
-  top = temp;
-
-  temp = createNode(5);
-  temp -> next = top;
-  top = temp;
-
-  temp = createNode(7);
-  temp -> next = top;
-  top = temp;
+  temp = searchNode(top, 5);
+  insertNext(temp, 7);
 
   printAll(top);
-  
-  temp = searchNode(top, 3);
-  printf("temp = searchNode(3); temp = %p \n", temp);
 
-  temp = searchNode(top, 4);
-  printf("temp = searchNode(4); temp = %p \n", temp);
+  deleteNode(&top, 1);
+  printAll(top);
+  
+  insertBefore(&top, 3, 9);
+  printAll(top);
+
 
   freeAll(top);
 
