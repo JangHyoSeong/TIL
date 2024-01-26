@@ -6,7 +6,7 @@ import pprint
 # 서울의 위도 경도
 lat = 35.1796
 lon = 129.0756
-
+API_KEY = ''
 URL = f'https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API_KEY}'
 
 data = requests.get(URL).json()
