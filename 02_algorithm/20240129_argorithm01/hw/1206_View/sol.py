@@ -12,4 +12,3 @@ for testcase in range(1, T+1):
              view_point += buildings[height] - max_height
     
     print(f'#{testcase} {view_point}')
-            
