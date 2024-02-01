@@ -20,7 +20,7 @@ for testcase in range(1, T+1):
     # selection sort
     for i in range(length-1, 0, -1):
         
-        for j in range(length-1, 0, -1):
+        for j in range(length-1, length - i - 1, -1):
 
             # 최대값을 찾는 경우
             if flag == MAX:
