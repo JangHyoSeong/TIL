@@ -22,6 +22,3 @@ for testcase in range(1, T+1):
             break
     else:
         print(f'#{testcase} 0')
-        
-
-    
