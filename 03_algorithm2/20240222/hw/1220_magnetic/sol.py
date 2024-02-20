@@ -9,5 +9,16 @@ for testcase in range(1, 11):
     deadlock = 0
 
     for x in range(size):
+
+        flag = False
         for y in range(size):
-            magnetic[y][x]
+
+            if flag == True and magnetic[y][x] == 2:
+                deadlock += 1
+                flag = False
+
+            elif magnetic[y][x] == 1:
+                flag = True
+        
+
+    print(f'#{testcase} {deadlock}')
