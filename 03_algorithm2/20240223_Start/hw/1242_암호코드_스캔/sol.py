@@ -45,9 +45,6 @@ for testcase in range(1, T+1):
             binary_data.append(binary_line)
 
     length = len(binary_data)
-    for i in range(0, length-1):
-        if binary_data[i] in binary_data[i+1]:
-            binary_data.pop(i)
     
 
     password = []
@@ -70,10 +67,13 @@ for testcase in range(1, T+1):
                 if int(binary_data[i][j]) == 0:
                     continue
                 else:
-                    flag = True
-                    now = 1
-                    count += 1
-                    change += 1
+                    if i < length-1 and binary_data[i][j] == binary_data[i+1][j]:
+                        continue
+                    else:
+                        flag = True
+                        now = 1
+                        count += 1
+                        change += 1
 
             else:
                 if now == int(binary_data[i][j]):
@@ -95,7 +95,8 @@ for testcase in range(1, T+1):
                 one_word[0] = 7 - one_word[1] -one_word[2] -one_word[3]
                 code[word_idx-1] = decode[tuple(one_word)]
                 word_idx = 8
-                password.append(code)
+                if code not in password:
+                    password.append(code)
                 
 
             elif change == 5:
@@ -106,7 +107,7 @@ for testcase in range(1, T+1):
                 ratio = min(one_word)
                 for k in range(4):
                     one_word[k] //= ratio
-                
+                print(code)
                 code[word_idx-1] = decode[tuple(one_word)]
                 word_idx -= 1
 
