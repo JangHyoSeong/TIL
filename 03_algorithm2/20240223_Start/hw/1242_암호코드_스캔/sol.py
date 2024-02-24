@@ -51,7 +51,8 @@ for testcase in range(1, T+1):
     result = 0
 
 
-    for i in range(len(binary_data)):
+    for i in range(length):
+        
         now = 0
         count = 0
         change = 0
@@ -63,6 +64,8 @@ for testcase in range(1, T+1):
 
         for j in range(4*M-1, -1, -1):
 
+            if i > 0 and binary_data[i][j] == binary_data[i-1][j]:
+                continue
             if flag == False:
                 if int(binary_data[i][j]) == 0:
                     continue

@@ -65,7 +65,6 @@ for testcase in range(1, T+1):
         one_word = [0] * 4
 
         for j in range(4*M-1, -1, -1):
-
             if flag == False:
                 if int(binary_data[i][j]) == 0:
                     continue
@@ -89,7 +88,7 @@ for testcase in range(1, T+1):
                 count = 0
                 num = 0
                 change = 0
-
+                
                 for k in range(4):
                     one_word[k] //= ratio
                 one_word[0] = 7 - one_word[1] -one_word[2] -one_word[3]
