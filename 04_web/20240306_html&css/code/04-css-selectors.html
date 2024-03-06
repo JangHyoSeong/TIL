@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+
+    /* 전체 선택 : 모든 html 내용을 바꿈 */
+    *{
+      color : red;
+    }
+
+    /* h2 태그만 바꿈 */
+    h2{
+      color : orange;
+    }
+
+    /* ,를 통해 여러 요소 선택 가능. 스타일 가이드상 엔터로 구분 */
+    h3,
+    h4{
+      color : blue;
+    }
+    /* 위 방법은 실제로 잘 안씀 */
+
+    /* .은 클래스 속성을 의미 */
+    /* 초록색으로 바꾸고 싶은 곳에 적용하면 됨 */
+    .green{
+      color : green;
+    }
+
+    /* 아이디 선택자 */
+    /* 클래스와 우선순위가 다름 */
+    /* 주어진 아이디를 가진 요소가 하나만 있어야 함 */
+    #purple{
+      color : purple;
+    }
+
+    /* 자식결합자 상속구조. green의 한단계 아래인 span을 바꿈 */
+    .green > span{
+      font-size : 50px;
+    }
+
+    /* 자손결합자. green의 모든 자손의 li가 brown으로 바뀜 */
+    .green li{
+      color : brown;
+    }
+
+  </style>
+</head>
+
+<body>
+  <h1 class="green">Heading</h1>
+  <h2>선택자</h2>
+  <h3>연습</h3>
+  <h4>반가워요</h4>
+  <p id="purple">과목 목록</p>
+  <ul class="green">
+    <li>파이썬</li>
+    <li>알고리즘</li>
+    <li>웹
+      <ol>
+        <li>HTML</li>
+        <li>CSS</li>
+        <li>PYTHON</li>
+      </ol>
+    </li>
+  </ul>
+  <p class="green">Lorem, <span>ipsum</span> dolor.</p>
+</body>
+
+</html>
