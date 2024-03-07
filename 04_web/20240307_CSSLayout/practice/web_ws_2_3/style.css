@@ -1,0 +1,28 @@
+/* style.css */
+
+.category{
+  background-color: #d5bfbf;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  font-size: 20px;
+  font-weight: bold;
+  position: sticky;
+  top: 0;
+}
+
+.top-button {
+    background-color: #343434;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    position: fixed;
+    bottom : 5%;
+    right : 5%;
+  }
+
+  .top-button a {
+    text-decoration: none;
+    font-size: 16px;
+    color: #fff;
+  }
