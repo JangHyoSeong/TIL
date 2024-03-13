@@ -1,0 +1,22 @@
+{% extends "navbar.html" %}
+
+{% block content %}
+  <h1>베스트 셀러 목록</h1>
+  {% for item in result %}
+  {% if  forloop.counter <= 3%}
+  <div class="bg-primary-subtle">
+    <p>제목 : {{ item.title }}</p>
+    <p>저자 : {{ item.author }}</p>
+    <p>설명 : {{ item.bestDuration }}</p>
+    <hr>
+  </div>
+  {% else %}
+  <div>
+    <p>제목 : {{ item.title }}</p>
+    <p>저자 : {{ item.author }}</p>
+    <p>설명 : {{ item.bestDuration }}</p>
+    <hr>
+  </div>
+  {% endif %}
+  {% endfor %}
+{% endblock content %}
