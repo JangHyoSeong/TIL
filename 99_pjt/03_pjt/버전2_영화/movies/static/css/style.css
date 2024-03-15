@@ -1,0 +1,29 @@
+/* Viewport width 1400px 미만일 때 */
+@media (max-width: 1399px) {
+  .header {
+    width: 100%;
+  }
+}
+
+/* Viewport width 1400px 이상일 때 */
+@media (min-width: 1400px) {
+  .header {
+    width: 1320px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.header{
+  padding-top : 60px;
+}
+
+.padding{
+  padding-top : 75px;
+}
+
+.card-img-top{
+  object-fit: cover;
+  width: 100%;
+  height : 100%;
+}
