@@ -35,3 +35,24 @@ def detail(request,pk):
     }
     return render(request,'travels/detail.html',context)
 
+@require_safe
+def delete(request, pk):
+    travel = get_object_or_404(Travel, pk=pk)
+    travel.delete()
+    return redirect('travels:index')
+
+@require_http_methods(["GET","POST"])
+def update(request, pk):
+    travel = get_object_or_404(Travel, pk=pk)
+    if request.method == 'POST':
+        form = TravelForm(request.POST, instance=travel)
+        if form.is_valid():
+            form.save()
+        return redirect('travels:detail', travel.pk)
+    else:
+        form = TravelForm(instance=travel)
+    context = {
+        'form' : form,
+        'travel' : travel,
+    }
+    return render(request, 'travels/update.html', context)

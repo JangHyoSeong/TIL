@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<h1>travels</h1>
+<a href="{% url "travels:create" %}">CREATE</a>
+<hr>
+
+
+{% for t in travels %}
+<p class=my-1>장소 : {{t.location}}</p>
+<p class=my-1>계획 : {{t.plan}}</p>
+<p class=my-1>시작일 : {{t.start_date}}</p>
+<p class=my-1>종료일 : {{t.end_date}}</p>
+<a href="{% url "travels:detail" t.pk %}">[detail]</a>
+<hr>
+{% endfor %}
+
+{% endblock content %}
