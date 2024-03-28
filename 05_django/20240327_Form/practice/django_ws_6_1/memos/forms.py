@@ -10,12 +10,12 @@ class MemoForm(forms.ModelForm):
         )
     )
     memo = forms.CharField(
-        widget=forms.TextInput(
+        widget=forms.Textarea(
             attrs={
                 'placeholder' : 'memo',
                 'rows' : 5,
                 'cols' : 50,
-            }   
+            }
         )
     )
     class Meta:
