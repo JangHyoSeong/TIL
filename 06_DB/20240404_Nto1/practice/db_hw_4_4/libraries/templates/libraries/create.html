@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<h1>책 생성</h1>
+<form method="POST">
+  {% csrf_token %}
+  {{book_form.as_p}}
+  <input type="submit" value="생성">
+</form>
+<a href="{% url "libraries:index" %}">[Home]</a>
+{% endblock content %}
