@@ -1,0 +1,24 @@
+[
+{
+    "model": "articles.comment",
+    "pk": 1,
+    "fields": {
+        "article": 1,
+        "user": 2,
+        "content": "134qwsz",
+        "created_at": "2024-04-09T00:14:32.418Z",
+        "updated_at": "2024-04-09T00:14:32.418Z"
+    }
+},
+{
+    "model": "articles.comment",
+    "pk": 2,
+    "fields": {
+        "article": 1,
+        "user": 1,
+        "content": "1234rsda",
+        "created_at": "2024-04-09T00:14:46.890Z",
+        "updated_at": "2024-04-09T00:14:46.890Z"
+    }
+}
+]

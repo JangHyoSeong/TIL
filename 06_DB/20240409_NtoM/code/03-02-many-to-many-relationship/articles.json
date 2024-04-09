@@ -1,0 +1,30 @@
+[
+{
+    "model": "articles.article",
+    "pk": 1,
+    "fields": {
+        "user": 2,
+        "title": "4123214",
+        "content": "as123412",
+        "created_at": "2024-04-09T00:14:30.079Z",
+        "updated_at": "2024-04-09T00:14:30.079Z",
+        "like_users": [
+            1
+        ]
+    }
+},
+{
+    "model": "articles.article",
+    "pk": 2,
+    "fields": {
+        "user": 1,
+        "title": "51234",
+        "content": "1234rs",
+        "created_at": "2024-04-09T00:14:42.895Z",
+        "updated_at": "2024-04-09T00:14:42.895Z",
+        "like_users": [
+            1
+        ]
+    }
+}
+]
