@@ -1,0 +1,42 @@
+[
+{
+    "model": "artists.artist",
+    "pk": 1,
+    "fields": {
+        "name": "adele",
+        "agency": "XL",
+        "debut_date": "2008-12-11",
+        "is_group": true
+    }
+},
+{
+    "model": "artists.artist",
+    "pk": 2,
+    "fields": {
+        "name": "abc",
+        "agency": "asdf",
+        "debut_date": "2008-12-15",
+        "is_group": false
+    }
+},
+{
+    "model": "artists.artist",
+    "pk": 3,
+    "fields": {
+        "name": "3333",
+        "agency": "asdf333",
+        "debut_date": "2008-01-12",
+        "is_group": false
+    }
+},
+{
+    "model": "artists.artist",
+    "pk": 4,
+    "fields": {
+        "name": "4444",
+        "agency": "44444",
+        "debut_date": "2008-01-14",
+        "is_group": true
+    }
+}
+]
