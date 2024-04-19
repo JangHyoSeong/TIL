@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1 class='m-4'>DETAIL PAGE</h1>
+    <div class="card m-4 p-2">
+        <p>{{ movie.title }}</p>
+        <p>{{ movie.desctiption }}</p>
+    </div>
+    <hr>
+
+    <div class='m-4'>
+        <h3>댓글 목록</h3>
+        {% for comment in comments %}
+        <div class='card m-2 p-2'>
+            {{ comment.content }}
+            {{ comment.user }}
+        </div>
+            {% empty %}
+            <p>아직 댓글이 없네요...</p>
+        {% endfor %}
+    </div>
+    <hr>
+
+    <div class='m-4'>
+        <form action="{% url "movies:comments_create" movie.pk%}" method='POST'>
+            {% csrf_token %}
+            {{ commentform.as_p }}
+            <input type="submit" value='submit'>
+        </form>
+        
+        <a href="{% url "movies:update" movie.pk%}">UPDATE</a> 
+
+        <form action="{% url "movies:delete" movie.pk %}" method='POST'>
+            {% csrf_token %}
+            <input type="submit" value='DELETE'>
+        </form>
+
+        <a href="{% url "movies:index" %}">BACK</a>
+    </div>
+{% endblock content %}

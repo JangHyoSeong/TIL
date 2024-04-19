@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1 class='m-4'>INDEX PAGE</h1>
+
+    <div class='m-4'>
+    {% for movie in movies %}
+    <div class="card ">
+        <h5 class="card-header">{{ movie.title }}</h5>
+        <div class="card-body">
+          <a href="{% url "movies:detail" movie.pk %}">DETAIL</a>
+
+          <form action="{% url "movies:likes" movie.pk %}" method='POST'>
+            {% csrf_token %}
+            {% if request.user in movie.like_users.all %} <!-- 사용자가 좋아요를 누른 리스트에 들어있으면 아래 문장 실행 -->
+              <input type="submit" value="좋아요 취소" class="btn btn-outline-primary">
+            {% else %} <!-- 안들어 있으면 아래 문장 실행 -->
+              <input type="submit" value="좋아요" class="btn btn-outline-primary">
+            {% endif %}
+          </form>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+
+{% endblock content %}
