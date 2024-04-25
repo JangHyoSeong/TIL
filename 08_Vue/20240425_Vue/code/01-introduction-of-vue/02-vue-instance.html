@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <h1>{{message}}</h1>
+    <button @click="count++">
+      Count is: {{count}}
+    </button>
+  </div>
+
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const {createApp, ref} = Vue
+
+    const app = createApp({
+      setup() {
+        const message = ref('Hello vue!')
+        const count = ref(0)
+
+        return {
+          message, // 단축 속성 , 'message': message 과 같음
+          count
+        }
+      }
+    })
+
+    app.mount('#app')
+  </script>
+  </body>
+
+</html>
