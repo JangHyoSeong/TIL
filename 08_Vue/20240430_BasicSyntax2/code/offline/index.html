@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- template -->
+  <!-- id가 app일 필요는 없다.-->
+  <div id="app">
+    <h1>현재 작성된 할 일 목록 : {{ countOfTodos }}</h1>
+    <!-- <h1>현재 작성된 할 일 목록 : {{ countOfTodos }}</h1>
+    <h1>현재 작성된 할 일 목록 : {{ countOfTodos }}</h1>
+    <h1>현재 작성된 할 일 목록 : {{ countOfTodosMethod() }}</h1>
+    <h1>현재 작성된 할 일 목록 : {{ countOfTodosMethod() }}</h1>
+    <h1>현재 작성된 할 일 목록 : {{ countOfTodosMethod() }}</h1> -->
+    <!-- <p>{{ test }}</p> -->
+    <!-- todos를 반복해서 카드 하나하나를 만든다. -->
+    <!-- v-for 쓸때 반드시 뭐해야한다? -> key 설정해야한다. -->
+    <!-- key 작성할때, 그냥 key="todo.id" -->
+    <!-- html 속성에 vue 문법 사용해서, 변수나, 객체의 속성 할당하고 싶다면 v-bind -->
+    <!-- article -> 전체 목록 -->
+    <article v-if="isLogin">
+      <div
+        v-for="todo in todos"
+        :key="todo.id"
+      >
+        <div class="card" v-on:click="goDetail(todo)">
+          <!-- 조건부 class binding -->
+          <!-- todo의 completed 값이 true인 경우에만 done 클래스 부여 -->
+          <p 
+            v-bind:class="{ done:todo.completed }"
+          >
+            {{ todo.title }}
+          </p>
+          <p>{{ todo.completed }}</p>
+          <hr>
+        </div>
+      </div>
+    </article>
+
+    <article v-if="!isLogin">
+      <form @submit.prevent="login">
+        <label for="username">username : </label>
+        <input type="text" name="username" id="username" 
+          v-model="username"
+          @input="userNameValidator"
+        >
+        <p 
+          v-show="!userNameError.isValid"
+        >
+          {{ userNameError.text }}
+        </p>
+
+        <label for="password">password : </label>
+        <input type="password" name="password" id="password" 
+          v-model="password">
+
+        <input type="submit" value="login">
+      </form>
+    </article>
+    <!-- 
+      v-if => 조건 불만족시 화면에 렌더링조차 되지 않음
+      v-show => 조건 불만족시 display:none 으로 설정하고 렌더링함.
+     -->
+    <section 
+      v-show="todo"
+      class="detail"
+    >
+      <!-- 종료 버튼 pk, title, completed, userid, comments  -->
+      <button @click="closeDetail">x</button>
+      <h1>{{ todo.id }}| {{ todo.title }}</h1>
+      <p>userId : {{ todo.userId }}</p>
+      <p>isCompleted : {{ todo.completed }}</p>
+
+      <!-- 댓글 영역 -->
+      <div
+        v-for="comment in detailComments"
+        :key="comment.id"
+      >
+        <p>{{ comment.id }} | {{ comment.body}}</p>
+      </div>
+    </section>
+  
+  </div>
+
+  <!-- Vue CDN -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <!-- axios CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+  <!-- Vue 객체 작성 -->
+  <script>
+    // 객체 구조 분해 할당으로, Vue.createApp을 createApp 변수에 할당한다.
+    // Vue가 가지고 있는 메서드 onMounted 가져온다,
+    const { createApp, ref, onMounted, computed, watch } = Vue
+    const app = createApp({
+      setup() {
+        const isLogin = ref(false)
+
+        // 반응형 객체 -> 내부 요소가 변경될때, Vue가 변경사항을 파악하고,
+        // 바뀐 데이터에 맞춰서 화면을 재 렌더링 할 수 있게 하기 위함.
+        const todos = ref([
+          {
+            id:1,
+            title: '첫번째 게시글',
+            completed: false,
+            comments: []
+          },
+          {
+            id:2,
+            title: '두번째 게시글',
+            completed: true
+          },
+        ])
+
+        const todo = ref(false)
+        const comments = ref([])
+        const countOfTodos = computed(() => {
+          console.log('컴퓨티드 호출')
+          return todos.value.length
+        })
+
+        const countOfTodosMethod = function () {
+          console.log('메서드 호출')
+          return todos.value.length
+        }
+
+        // const detailComments = computed(()=> {
+        //   const result = comments.value.filter(comment => {
+        //     return comment.postId === todo.value.id
+        //   })
+        //   return result
+        // }) 
+        const detailComments = ref([])
+
+        watch(todo, (newV, oldV) => {
+          // console.log(oldV) // false
+          // console.log(newV)
+          detailComments.value = comments.value.filter(comment => {
+            return comment.postId === newV.id
+          })
+        })
+
+        const goDetail = function (item) {
+          todo.value = item
+        }
+
+        const closeDetail = function () {
+          todo.value = false
+        }
+
+        // onMounted 함수 호출시, callBack function 
+        onMounted(() => {
+          axios({
+            methods: 'get',
+            url: 'https://jsonplaceholder.typicode.com/todos/'
+          })
+            .then(res => todos.value = res.data.slice(0, 100))
+            .catch(err => console.log(err))
+
+          axios({
+            methods: 'get',
+            url: 'https://jsonplaceholder.typicode.com/comments'
+          })
+            .then(res => comments.value = res.data)
+            .catch(err => console.log(err))
+        })
+        // template에 mount하여 사용할 객체, 메서드 등을 반환.
+
+        const login = function () {
+          if (!userNameError.value.isValid) {
+            console.log('유효성 통과 못함')
+            // p 태그 show로 조건 만들고.
+            // loginValidator 객체 만들어서 
+          } else {
+            if (username.value.trim() && password.value.trim()) {
+              isLogin.value = true 
+            }
+          }
+
+        }
+
+        const userNameError = ref({
+          text: '',
+          isValid: true
+        })
+
+        const password = ref('')
+        const username = ref('')
+        const userNameValidator = function () {
+          // username 입력 값이 12 초과하는 경우, userNameError 객체 값 변경
+          if (username.value.length > 12) {
+            userNameError.value.isValid = false
+            userNameError.value.text = '이름은 12글자 까지만 작성할 수 있습니다.'
+          } 
+          // else if (!username.value.trim()) {
+
+          // }
+          else { 
+            userNameError.value.isValid = true
+            userNameError.value.text = ''
+          }
+        }
+
+        return {
+          // test: '잘 렌더링 되나? 잘 가져왔나?'
+          todos, todo, comments, countOfTodos, isLogin, userNameError, 
+          username, password,
+          detailComments,
+          goDetail, closeDetail, countOfTodosMethod, login,
+          userNameValidator
+        }
+      }
+    })
+    app.mount('#app')
+  </script>
+</body>
+</html>
