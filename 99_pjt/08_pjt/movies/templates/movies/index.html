@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Movies</h1>
+
+  <select name="genre" id="genre">
+    <option value="" selected disabled>장르를 선택하시오</option>
+    {% for genre in genres %}
+    <option value="{{genre.id}}">{{genre.name}}</option>
+    {% endfor %}
+  </select>
+
+  <ul id="old">
+    {% for movie in movies %}
+    <li class="movie" data-genre="{{ movie.genre_id }}">{{ movie.title }}</li>
+    {% endfor %}
+  </ul>
+
+  <ul id="new">
+
+  </ul>
+
+
+{% endblock content%}
+
+{% block script %}
+<script>
+  document.getElementById('genre').addEventListener('change', function(){
+    const selectedGenre = this.value
+
+    axios({
+      method: 'get',
+      url: `/movies/filter-genre/?genre_id=${selectedGenre}`
+    })
+      .then((response) => {
+        const movies = response.data
+        const movieList = document.querySelector('#new')
+        const oldMovieList = document.querySelector('#old')
+        oldMovieList.innerHTML = ''
+
+        movieList.innerHTML=''
+        movies.forEach(movie => {
+          const liTag = document.createElement('li')
+          liTag.textContent = movie.title
+          movieList.appendChild(liTag)
+        })
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  })
+</script>
+{% endblock script %}
